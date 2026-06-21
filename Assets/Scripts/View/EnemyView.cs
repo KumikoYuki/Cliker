@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace View
 {
-    public class EnemyView : MonoBehaviour
+    public sealed class EnemyView : MonoBehaviour
     {
+        
     }
 }

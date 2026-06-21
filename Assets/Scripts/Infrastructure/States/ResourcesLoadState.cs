@@ -1,5 +1,6 @@
 using System;
 using Data.Enemies;
+using Data.Game;
 using Infrastructure.AddresablessProvider;
 using Infrastructure.StateMachine;
 using UnityEngine;
@@ -21,7 +22,7 @@ namespace Infrastructure.States
         public async void Enter()
         {
             _gameRules.Enemies = await _resourcesProvider.LoadAsset<EnemiesData>(ResourcesContants.EnemiesDataPath);
-            
+            _gameRules.Game = await _resourcesProvider.LoadAsset<GameData>(ResourcesContants.GameDataPath);
             _stateMachine.Enter<SceneLoadState, SceneTypes, Action>(SceneTypes.Game, OnSceneLoaded);
         }
 
