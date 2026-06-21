@@ -3,7 +3,7 @@ using Infrastructure.States;
 
 namespace Infrastructure.StateMachine
 {
-    public class StateMachine : IStateMachine, ITickable
+    public class StateMachine : IStateMachine
     {
         private readonly IStateFactory _stateFactory;
        

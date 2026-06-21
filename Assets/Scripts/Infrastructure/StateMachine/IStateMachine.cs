@@ -1,8 +1,9 @@
+using Infrastructure.Engine;
 using Infrastructure.States;
 
 namespace Infrastructure.StateMachine
 {
-    public interface IStateMachine
+    public interface IStateMachine : ITickable
     {
         void Enter<TState>() where TState : IEnterableState;
         void Enter<TState, TParam>(TParam param) where TState : IEnterableState<TParam>;

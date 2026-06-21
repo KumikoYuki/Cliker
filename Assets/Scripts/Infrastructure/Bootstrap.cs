@@ -9,6 +9,8 @@ namespace Infrastructure
 {
     public class Bootstrap : MonoBehaviour
     {
+        private ProjectContext _projectContext;
+
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
@@ -16,11 +18,19 @@ namespace Infrastructure
             var dependencyCountainer = new DependencyDictionaryContainer();
             var sceneFactory = new StateFactory(dependencyCountainer);
             var stateMachine = new GameStateMachine(sceneFactory);
+            _projectContext = new ProjectContext(dependencyCountainer, stateMachine);
 
+            dependencyCountainer.Register(new Load);
+            
             BindClasses(dependencyCountainer);
             BindStates(dependencyCountainer);
             
             stateMachine.Enter<SceneLoadState, SceneTypes, Action>(SceneTypes.Game, OnSceneLoaded);
+        }
+
+        private void Update()
+        {
+            _projectContext.GameStateMachine.Tick();
         }
 
         private void OnSceneLoaded()
@@ -28,18 +38,6 @@ namespace Infrastructure
             Debug.Log("Scene loaded");
         }
 
-        private void BindStates(DependencyDictionaryContainer dependencyCountainer)
-        {
-            var state = new SceneLoadState(dependencyCountainer.Resolve<ISceneLoader>());
-            
-            dependencyCountainer.Register(state);
-        }
-
-        private void BindClasses(DependencyDictionaryContainer dependencyCountainer)
-        {
-            var sceneLoader = new SceneLoader();
-            
-            dependencyCountainer.Register<ISceneLoader>(sceneLoader);
-        }
+        
     }
 }
