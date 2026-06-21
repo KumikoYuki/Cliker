@@ -2,7 +2,11 @@
     "name": "Game",
     "rootNamespace": "",
     "references": [
-        "UniTask"
+        "UniTask",
+        "UniTask.Addressables",
+        "Unity.ResourceManager",
+        "Unity.Addressables",
+        "Sirenix.OdinInspector.Modules.Unity.Addressables"
     ],
     "includePlatforms": [
         "Android",

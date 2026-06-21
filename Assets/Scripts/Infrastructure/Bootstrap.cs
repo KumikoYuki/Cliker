@@ -20,24 +20,14 @@ namespace Infrastructure
             var stateMachine = new GameStateMachine(sceneFactory);
             _projectContext = new ProjectContext(dependencyCountainer, stateMachine);
 
-            dependencyCountainer.Register(new Load);
+            dependencyCountainer.Register(new BindDepentenciesState(_projectContext));
             
-            BindClasses(dependencyCountainer);
-            BindStates(dependencyCountainer);
-            
-            stateMachine.Enter<SceneLoadState, SceneTypes, Action>(SceneTypes.Game, OnSceneLoaded);
+            _projectContext.GameStateMachine.Enter<BindDepentenciesState>();
         }
 
         private void Update()
         {
             _projectContext.GameStateMachine.Tick();
         }
-
-        private void OnSceneLoaded()
-        {
-            Debug.Log("Scene loaded");
-        }
-
-        
     }
 }
