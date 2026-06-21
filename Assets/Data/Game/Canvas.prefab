@@ -521,7 +521,7 @@ Canvas:
   m_GameObject: {fileID: 7436414473699758531}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -588,6 +588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50c40e52d9e04851a3f6603a4d8da73d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::View.GameView
+  Canvas: {fileID: 5102090360839289269}
 --- !u!1 &7769846606698597955
 GameObject:
   m_ObjectHideFlags: 0

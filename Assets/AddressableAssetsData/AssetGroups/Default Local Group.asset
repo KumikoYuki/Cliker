@@ -16,7 +16,7 @@ MonoBehaviour:
   m_GUID: f9dfa25e57b35ef4c8beec0d95aa0876
   m_SerializeEntries:
   - m_GUID: 1834798ac8506974c86dc8bcb29cb5d5
-    m_Address: Assets/Data/Game/Canvas.prefab
+    m_Address: GameView
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
