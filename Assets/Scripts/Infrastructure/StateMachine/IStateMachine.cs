@@ -6,7 +6,4 @@ namespace Infrastructure.StateMachine
     {
         void Enter<TState>() where TState : IExitableState;
     }
-    
-    
-    
 }
