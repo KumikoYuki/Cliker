@@ -1,5 +1,9 @@
+using System;
+using Infrastructure.StateMachine;
+using Infrastructure.States;
 using SceneLoad;
 using UnityEngine;
+using GameStateMachine = Infrastructure.StateMachine.StateMachine;
 
 namespace Infrastructure
 {
@@ -8,14 +12,34 @@ namespace Infrastructure
         private void Awake()
         {
             DontDestroyOnLoad(gameObject);
-            ISceneLoader sceneLoader = new SceneLoader();
+
+            var dependencyCountainer = new DependencyDictionaryContainer();
+            var sceneFactory = new StateFactory(dependencyCountainer);
+            var stateMachine = new GameStateMachine(sceneFactory);
+
+            BindClasses(dependencyCountainer);
+            BindStates(dependencyCountainer);
             
-            sceneLoader.LoadScene(SceneTypes.Game, OnSceneLoaded);
+            stateMachine.Enter<SceneLoadState, SceneTypes, Action>(SceneTypes.Game, OnSceneLoaded);
         }
 
         private void OnSceneLoaded()
         {
-            Debug.Log("Scene Loaded");
+            Debug.Log("Scene loaded");
+        }
+
+        private void BindStates(DependencyDictionaryContainer dependencyCountainer)
+        {
+            var state = new SceneLoadState(dependencyCountainer.Resolve<ISceneLoader>());
+            
+            dependencyCountainer.Register(state);
+        }
+
+        private void BindClasses(DependencyDictionaryContainer dependencyCountainer)
+        {
+            var sceneLoader = new SceneLoader();
+            
+            dependencyCountainer.Register<ISceneLoader>(sceneLoader);
         }
     }
 }
